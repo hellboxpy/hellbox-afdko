@@ -15,7 +15,7 @@ class TtfComponentizer(Chute):
         # Create a symlink to the original UFO in the same directory as the copy
         ufo_link = copy.content_path.parent / file.original_path.name
         if not ufo_link.exists():
-            ufo_link.symlink_to(file.original_path)
+            ufo_link.symlink_to(file.original_path.resolve())
 
         result = ttfcomponentizer.main([str(copy.content_path)])
         if result is not None:

@@ -21,13 +21,12 @@ class MakeOTF(Chute):
         from afdko import makeotf
 
         Hellbox.info(f"Building OTF: {file.name}")
-        # Create a temp directory and specify the output file path within it.
-        # We must NOT pre-create the output path as a directory: makeotf treats
-        # an existing directory as an output folder and names the file after the
-        # font's PostScript name instead of using the path as a file name.
+        # Pass a pre-created directory as -o so makeotf names the output file
+        # after the font's PostScript name (e.g. SourceSans3-Regular.otf).
+        # When given an existing directory, makeotf uses the PS name; when
+        # given a non-existent path, it treats it as the literal output filename.
         tmp_dir = Path(tempfile.mkdtemp(dir=file.tmp_root))
-        output_path = tmp_dir / (file.stem + ".otf")
-        args = ["-f", str(file.content_path), "-o", str(output_path)]
+        args = ["-f", str(file.content_path), "-o", str(tmp_dir)]
         if self.release:
             args += ["-r"]
         if self.filter_glyphs:
@@ -37,4 +36,7 @@ class MakeOTF(Chute):
         result = makeotf.main(args)
         if result is not None:
             raise RuntimeError(f"makeotf failed with exit code {result}")
-        return SourceFile(file.original_path, output_path, file.tmp_root)
+        otf_files = list(tmp_dir.glob("*.otf"))
+        if not otf_files:
+            raise RuntimeError(f"makeotf produced no .otf file in {tmp_dir}")
+        return SourceFile(file.original_path, otf_files[0], file.tmp_root)
