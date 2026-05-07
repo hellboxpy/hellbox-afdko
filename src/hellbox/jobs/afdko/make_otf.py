@@ -1,3 +1,6 @@
+import tempfile
+from pathlib import Path
+
 from hellbox import Hellbox
 from hellbox.chutes.chute import Chute
 from hellbox.source_file import SourceFile
@@ -15,8 +18,6 @@ class MakeOTF(Chute):
         self.omit_mac_names = omit_mac_names
 
     def process(self, file: SourceFile) -> SourceFile:
-        import tempfile
-        from pathlib import Path
         from afdko import makeotf
 
         Hellbox.info(f"Building OTF: {file.name}")
@@ -34,6 +35,6 @@ class MakeOTF(Chute):
         if self.omit_mac_names:
             args += ["-omitMacNames"]
         result = makeotf.main(args)
-        if result and result != 0:
+        if result is not None:
             raise RuntimeError(f"makeotf failed with exit code {result}")
         return SourceFile(file.original_path, output_path, file.tmp_root)
