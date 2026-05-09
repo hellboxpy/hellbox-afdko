@@ -9,7 +9,7 @@ Installation
 Using the [hell CLI](https://github.com/hellboxpy/hell#installation):
 
 ```shell
-$ hell install hellbox-afdko
+$ hell add hellbox-afdko
 ```
 
 Development
