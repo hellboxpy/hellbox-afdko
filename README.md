@@ -1,27 +1,8 @@
-hellbox-afdko
-=============
+# hellbox-afdko
 
 A hellbox job that wraps executables from AFDKO.
 
-Installation
-------------
-
-Using the [hell CLI](https://github.com/hellboxpy/hell#installation):
-
-```shell
-$ hell add hellbox-afdko
-```
-
-Development
------------
-
-```shell
-$ pip install -e .
-$ pytest
-```
-
-Usage
------
+## Usage
 
 Import the chutes you need from `hellbox.jobs.afdko`:
 
@@ -74,7 +55,15 @@ with Hellbox("build") as task:
         >> task.write("fonts/")
 ```
 
-Contributing
-------------
+## Installation
 
-To come...
+```sh
+hell add hellbox-afdko
+```
+
+## Development
+
+```sh
+uv sync
+uv run pytest
+```
