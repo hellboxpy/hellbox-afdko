@@ -1,4 +1,3 @@
-from pathlib import Path
 from hellbox import Hellbox
 from hellbox.chutes.chute import Chute
 from hellbox.source_file import SourceFile

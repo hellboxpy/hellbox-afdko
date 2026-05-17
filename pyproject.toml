@@ -38,7 +38,19 @@ namespaces = true
 exclude = ["hellbox", "hellbox.jobs"]
 
 [dependency-groups]
-dev = ["mdformat", "pytest", "fonttools"]
+dev = [
+    "fonttools",
+    "mdformat",
+    "pytest",
+    "ruff>=0,<1",
+    "ty>=0.0.36",
+]
+
+[[tool.ty.overrides]]
+include = ["tests/**"]
+
+[tool.ty.overrides.rules]
+unresolved-import = "ignore"
 
 [tool.uv.sources]
 hellbox = { git = "https://github.com/hellboxpy/hellbox.git" }
