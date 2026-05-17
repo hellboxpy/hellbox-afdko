@@ -32,6 +32,7 @@ urls.Homepage = "https://github.com/hellboxpy/hellbox-afdko"
 
 [dependency-groups]
 dev = [
+  "commitizen>=4.16.2",
   "fonttools",
   "mdformat",
   "pyproject-fmt>=2.21.2",
